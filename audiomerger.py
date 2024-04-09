@@ -21,6 +21,7 @@ def addIntro(intro: AudioSegmentType, audio: AudioSegmentType, length: int = Non
   Returns:
       A new AudioSegment object with the intro added to the beginning (AudioSegment).
   """
+
     if (intro is None):
         return audio
 
@@ -82,6 +83,7 @@ def addBackgroundMusic(background: AudioSegmentType, audio: AudioSegmentType, lo
   Returns:
       A new AudioSegment object with the background music added (AudioSegment).
   """
+
     if (background is None):
         return audio
 

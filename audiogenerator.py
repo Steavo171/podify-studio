@@ -2,7 +2,7 @@ from gtts import gTTS
 import pyttsx3
 
 
-def text_to_audio_gtts(text, language='en', output_file='output.mp3'):
+def text_to_audio_gtts(text: str, language: str = 'en', output_file: str = 'output.mp3'):
 
     tts = gTTS(text=text, lang=language)
 
@@ -11,7 +11,7 @@ def text_to_audio_gtts(text, language='en', output_file='output.mp3'):
     print(f"Text converted to speech and saved as '{output_file}'")
 
 
-def text_to_audio_pyttsx3(text, language='en', output_file='output.mp3'):
+def text_to_audio_pyttsx3(text: str, language: str = 'en', output_file: str = 'output.mp3'):
 
     engine = pyttsx3.init()
 
@@ -25,10 +25,3 @@ def text_to_audio_pyttsx3(text, language='en', output_file='output.mp3'):
     engine.runAndWait()
 
     print(f"Text converted to speech and saved as '{output_file}'")
-
-
-def read_text_from_file(file_path):
-
-    with open(file_path, 'r', encoding='utf-8') as file:
-        text = file.read()
-    return text

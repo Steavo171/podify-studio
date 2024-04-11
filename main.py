@@ -1,7 +1,8 @@
 from type import AudioSegmentType
 from pydub import AudioSegment
 from audiomerger import addIntro, addOutro, addBackgroundMusic
-from audiogenerator import text_to_audio_gtts, text_to_audio_pyttsx3, read_text_from_file
+from audiogenerator import text_to_audio_gtts, text_to_audio_pyttsx3
+from utils import read_text_from_file
 
 
 def text_to_speech():
@@ -65,5 +66,5 @@ def intro_outro():
 
 
 if __name__ == "__main__":
-    # text_to_speech()
+    text_to_speech()
     intro_outro()

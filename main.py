@@ -80,6 +80,7 @@ def multiperson():
     for i, text in enumerate(texts):
         name, text = text.split(":")
         output_file = f"./audio/temp/{i+1}.mp3"
+
         if (name.strip() == "Host"):
             text_to_audio_gtts(text, language='en', output_file=output_file)
         else:
@@ -93,7 +94,7 @@ def multiperson():
         if i == 0:
             final_audio = audio
         else:
-            final_audio = final_audio.append(audio, crossfade=0)
+            final_audio = final_audio+audio
 
     final_audio.export("./audio/output.mp3", format="mp3")
 

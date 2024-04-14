@@ -90,3 +90,11 @@ def addBackgroundMusic(background: AudioSegmentType, audio: AudioSegmentType, lo
     audio = audio.overlay(
         background, gain_during_overlay=volumn, position=postion*1000, loop=loop)
     return audio
+
+
+def mergeTwoAudio(audio1: AudioSegmentType, audio2AudioSegmentType):
+    """
+  This function merges two audio files together.
+  """
+
+    return audio1 + audio2

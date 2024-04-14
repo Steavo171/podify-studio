@@ -2,12 +2,11 @@ from gtts import gTTS
 import pyttsx3
 
 
-def text_to_audio_gtts(text: str, language: str = 'en', output_file: str = 'output.mp3'):
+def text_to_audio_gtts(text: str, language: str = 'en', output_file: str = 'output.mp3', tld="com"):
 
-    tts = gTTS(text=text, lang=language)
+    tts = gTTS(text=text, lang=language, tld=tld)
 
     tts.save(output_file)
-
     print(f"Text converted to speech and saved as '{output_file}'")
 
 

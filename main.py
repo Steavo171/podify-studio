@@ -65,6 +65,38 @@ def intro_outro():
     audio.export("./audio/output.mp3", format="mp3")
 
 
+def multiperson():
+    print("Welcome to Multi-person Audio Generator!")
+    print("Enter the text for each person separated by a semicolon (;).")
+    print("For example, 'Person 1: Hello; Person 2: Hi'")
+
+    text = read_text_from_file("./test.txt").replace("\n", "").strip()
+
+    texts = text.split(";")
+
+    if texts[-1] == '':
+        texts.pop()
+
+    for i, text in enumerate(texts):
+        name, text = text.split(":")
+        output_file = f"./audio/temp/{i+1}.mp3"
+        if (name.strip() == "Host"):
+            text_to_audio_gtts(text, language='en', output_file=output_file)
+        else:
+            text_to_audio_gtts(text, language='en',
+                               output_file=output_file, tld="co.za")
+
+    final_audio = None
+    for i, text in enumerate(texts):
+        output_file = f"./audio/temp/{i+1}.mp3"
+        audio: AudioSegmentType = AudioSegment.from_file(output_file)
+        if i == 0:
+            final_audio = audio
+        else:
+            final_audio = final_audio.append(audio, crossfade=0)
+
+    final_audio.export("./audio/output.mp3", format="mp3")
+
+
 if __name__ == "__main__":
-    text_to_speech()
-    intro_outro()
+    multiperson()

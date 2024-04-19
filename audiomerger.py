@@ -92,7 +92,7 @@ def addBackgroundMusic(background: AudioSegmentType, audio: AudioSegmentType, lo
     return audio
 
 
-def mergeTwoAudio(audio1: AudioSegmentType, audio2AudioSegmentType):
+def mergeTwoAudio(audio1: AudioSegmentType,audio2: AudioSegmentType)->AudioSegmentType:
     """
   This function merges two audio files together.
   """

@@ -1,8 +1,8 @@
 from type import AudioSegmentType
 from pydub import AudioSegment
 from audiomerger import addIntro, addOutro, addBackgroundMusic
-from audiogenerator import text_to_audio_gtts, text_to_audio_pyttsx3
-from utils import read_text_from_file
+from audiogenerator import generateMultiAudio,generatePodcast
+from utils import readTextFromFile, dialogListFromText
 
 
 def text_to_speech():
@@ -70,33 +70,18 @@ def multiperson():
     print("Enter the text for each person separated by a semicolon (;).")
     print("For example, 'Person 1: Hello; Person 2: Hi'")
 
-    text = read_text_from_file("./test.txt").replace("\n", "").strip()
+    pathOfText=input("Enter the path of the text file: ")
 
-    texts = text.split(";")
 
-    if texts[-1] == '':
-        texts.pop()
+    text = readTextFromFile(pathOfText)
+    dilogs = dialogListFromText(text)
+    print("Generating audio...")
+    generateMultiAudio(dilogs, language="en", output_folder="./audio/temp",tld={"Host":"com","Co-Host":"co.uk"})
 
-    for i, text in enumerate(texts):
-        name, text = text.split(":")
-        output_file = f"./audio/temp/{i+1}.mp3"
-
-        if (name.strip() == "Host"):
-            text_to_audio_gtts(text, language='en', output_file=output_file)
-        else:
-            text_to_audio_gtts(text, language='en',
-                               output_file=output_file, tld="co.za")
-
-    final_audio = None
-    for i, text in enumerate(texts):
-        output_file = f"./audio/temp/{i+1}.mp3"
-        audio: AudioSegmentType = AudioSegment.from_file(output_file)
-        if i == 0:
-            final_audio = audio
-        else:
-            final_audio = final_audio+audio
-
-    final_audio.export("./audio/output.mp3", format="mp3")
+    print("Combining all audios...")
+    podcast = generatePodcast(output_folder="./audio/temp",len=len(dilogs))
+    podcast.export("/output.mp3", format="mp3")
+    
 
 
 if __name__ == "__main__":

@@ -1,6 +1,5 @@
 from type import AudioSegmentType
 
-
 def addIntro(intro: AudioSegmentType, audio: AudioSegmentType, length: int = None, crossFade: int = .1) -> AudioSegmentType:
     """
     This function adds an intro audio file to another audio file.

@@ -28,7 +28,7 @@ Podify Studio is a Python application for generating podcasts by merging text-ba
    ```
 4. Install
 
-   `You can open and save WAV files with pure python. For opening and saving non-wav files – like mp3 – you'll need ffmpeg or libav. (for pydub)`
+   You can open and save WAV files with pure python. For opening and saving non-wav files – like mp3 – you'll need ffmpeg or libav. (for pydub)
 
 ## Usage
 

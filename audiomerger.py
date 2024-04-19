@@ -3,98 +3,114 @@ from type import AudioSegmentType
 
 def addIntro(intro: AudioSegmentType, audio: AudioSegmentType, length: int = None, crossFade: int = .1) -> AudioSegmentType:
     """
-  This function adds an intro audio file to another audio file.
+    This function adds an intro audio file to another audio file.
 
-  Args:
-      intro:
-        Path to the intro audio file (str).
+    Args:
+        intro:
+            The intro audio segment (AudioSegmentType).
 
-      audio: 
-        Path to the audio file to add intro to (str).
+        audio: 
+            The main audio segment (AudioSegmentType) to which the intro will be added.
 
-      length:
-        The length of the intro to add (int) in sec.crossFade: The crossfade duration (int) in sec.
+        length:
+            The length of the intro to add in seconds (int). If None, the entire intro is used.
 
-      crossFade: 
-        The crossfade duration (int) in sec.
+        crossFade: 
+            The crossfade duration in seconds (float).
 
-  Returns:
-      A new AudioSegment object with the intro added to the beginning (AudioSegment).
-  """
+    Returns:
+        A new AudioSegment object with the intro added to the beginning.
+    """
 
-    if (intro is None):
+    if intro is None:
         return audio
 
-    intro = intro[:length*1000]
-    audio: AudioSegmentType = intro.append(audio, crossfade=crossFade*1000)
+    # Trim intro if length is provided
+    intro = intro[:length * 1000]
+    
+    # Append intro to audio with crossfade
+    audio = intro.append(audio, crossfade=crossFade * 1000)
     return audio
 
 
 def addOutro(outro: AudioSegmentType, audio: AudioSegmentType, length: int = None, crossFade: int = .1) -> AudioSegmentType:
     """
-  This function adds an outro audio file to another audio file.
+    This function adds an outro audio file to another audio file.
 
-  Args:
-      outro:
-        Path to the outro audio file (str).
+    Args:
+        outro:
+            The outro audio segment (AudioSegmentType).
 
-      audio:
-        Path to the audio file to add outro to (str).
+        audio:
+            The main audio segment (AudioSegmentType) to which the outro will be added.
 
-      length:
-        The length of the outro to add (int) in sec.
+        length:
+            The length of the outro to add in seconds (int). If None, the entire outro is used.
 
-      crossFade:
-        The crossfade duration (int) in sec.
+        crossFade:
+            The crossfade duration in seconds (float).
 
-  Returns:
-      A new AudioSegment object with the outro added to the end (AudioSegment).
-  """
+    Returns:
+        A new AudioSegment object with the outro added to the end.
+    """
 
-    if (outro is None):
+    if outro is None:
         return audio
 
-    outro = outro[:length*1000]
-    audio = audio.append(outro, crossfade=crossFade*1000)
+    # Trim outro if length is provided
+    outro = outro[:length * 1000]
+    
+    # Append outro to audio with crossfade
+    audio = audio.append(outro, crossfade=crossFade * 1000)
     return audio
 
 
-def addBackgroundMusic(background: AudioSegmentType, audio: AudioSegmentType, loop: bool = False, volumn: int = None, postion: int = 0) -> AudioSegmentType:
+def addBackgroundMusic(background: AudioSegmentType, audio: AudioSegmentType, loop: bool = False, volume: int = None, position: int = 0) -> AudioSegmentType:
     """
-  This function adds background music to another audio file.
+    This function adds background music to another audio file.
 
-  Args:
-      background:
-        Path to the background music audio file (str).
+    Args:
+        background:
+            The background music audio segment (AudioSegmentType).
 
-      audio:
-        Path to the audio file to add background music to (str).
+        audio:
+            The main audio segment (AudioSegmentType) to which the background music will be added.
 
-      loop:
-        Whether the background music should loop (bool).
+        loop:
+            Whether the background music should loop (bool).
 
-      volumn:
-        The volume of the background music (int).
+        volume:
+            The volume of the background music (int).
 
-      postion:
-        The position to start the background music (int) in sec.
+        position:
+            The position in seconds to start the background music (int).
 
+    Returns:
+        A new AudioSegment object with the background music added.
+    """
 
-  Returns:
-      A new AudioSegment object with the background music added (AudioSegment).
-  """
-
-    if (background is None):
+    if background is None:
         return audio
 
+    # Overlay background music on audio
     audio = audio.overlay(
-        background, gain_during_overlay=volumn, position=postion*1000, loop=loop)
+        background, gain_during_overlay=volume, position=position * 1000, loop=loop)
     return audio
 
 
-def mergeTwoAudio(audio1: AudioSegmentType,audio2: AudioSegmentType)->AudioSegmentType:
+def mergeTwoAudio(audio1: AudioSegmentType, audio2: AudioSegmentType) -> AudioSegmentType:
     """
-  This function merges two audio files together.
-  """
+    This function merges two audio segments together.
+
+    Args:
+        audio1:
+            The first audio segment (AudioSegmentType).
+
+        audio2:
+            The second audio segment (AudioSegmentType).
+
+    Returns:
+        A new AudioSegment object containing the merged audio segments.
+    """
 
     return audio1 + audio2
